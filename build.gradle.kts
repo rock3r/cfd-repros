@@ -19,7 +19,7 @@ dependencies {
   implementation(compose.desktop.currentOs) {
     exclude(group = "org.jetbrains.compose.material")
   }
-  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.17.0")
+  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.19.3")
   testImplementation(compose.desktop.uiTestJUnit4)
 }
 
