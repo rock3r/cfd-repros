@@ -1,6 +1,4 @@
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,7 +9,6 @@ import androidx.compose.foundation.v2.ScrollbarAdapter
 import androidx.compose.foundation.v2.maxScrollOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -25,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.intellij.openapi.project.Project
 import org.jetbrains.jewel.ui.component.IconActionButton
 import org.jetbrains.jewel.ui.component.Text
-import org.jetbrains.jewel.ui.component.VerticalScrollbar
+import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
 import org.junit.Rule
 import org.junit.Test
@@ -52,8 +49,8 @@ class TestExample {
 private fun MyRoot(fooProvider: FooProvider, modifier: Modifier = Modifier) {
     val items = remember { listOf("One", "Two", "Three") }
     val listState = rememberLazyListState()
-    val scrollbarAdapter = rememberScrollbarAdapter(listState)
-    Box(modifier) {
+    VerticallyScrollableContainer(modifier) {
+        val scrollbarAdapter = rememberScrollbarAdapter(listState)
         LazyColumn(
             modifier = Modifier.verticalScrim(scrollbarAdapter, Color.Red)
                 .padding(end = 16.dp),
@@ -61,13 +58,6 @@ private fun MyRoot(fooProvider: FooProvider, modifier: Modifier = Modifier) {
         ) {
             items(items, key = { it }) { Item(it, fooProvider) }
         }
-
-        VerticalScrollbar(
-            scrollbarAdapter,
-            Modifier.align(Alignment.TopEnd)
-                .fillMaxHeight()
-                .padding(top = 2.dp, end = 2.dp, bottom = 2.dp)
-        )
     }
 }
 
