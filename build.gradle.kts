@@ -27,7 +27,7 @@ dependencies {
   implementation("org.jetbrains.jewel:jewel-int-ui-standalone-242:0.24.2")
 
   intellijPlatform {
-    intellijIdeaCommunity("242.21829.142")
+    intellijIdeaCommunity("2024.2.1")
     instrumentationTools()
   }
   testImplementation(compose.desktop.uiTestJUnit4)
