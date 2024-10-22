@@ -19,10 +19,7 @@ private fun swingMain() {
   val frame = JFrame("CfD repro")
   frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
   frame.minimumSize = Dimension(500, 400)
-    System.setProperty(
-        "compose.swing.render.on.graphics",
-        "true",
-    )
+    System.setProperty("compose.swing.render.on.graphics", "true")
 
     val mainPanel =
         JPanel(BorderLayout()).apply {
@@ -42,24 +39,13 @@ private fun swingMain() {
 private fun JPanel.addChildren() {
   for (i in 0 until 10) {
     for (j in 0 until 5) {
-        add(
-            JLabel(
-                "<html>" +
-                        "Very long text here ".repeat(10) +
-                        "</html>"
-            )
-        )
+        add(JLabel("<html>" + "Very long text here ".repeat(10) + "</html>"))
       add(Box.createVerticalStrut(10))
     }
 
     add(
         ComposePanel().apply {
-            setContent {
-                Image(
-                    painterResource("cat.jpg"),
-                    contentDescription = null,
-                )
-            }
+            setContent { Image(painterResource("cat.jpg"), contentDescription = null) }
         }
     )
     add(Box.createVerticalStrut(10))
