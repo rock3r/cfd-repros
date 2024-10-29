@@ -21,10 +21,11 @@ repositories {
 }
 
 dependencies {
+  implementation(compose.components.resources)
   implementation(compose.desktop.currentOs) {
     exclude(group = "org.jetbrains.compose.material")
   }
-  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-242:0.26.0")
+  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-242:0.26.2")
 
   intellijPlatform {
     intellijIdeaCommunity("2024.2.3")
