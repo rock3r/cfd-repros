@@ -1,11 +1,14 @@
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposePanel
 import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.jewel.foundation.theme.JewelTheme
-import org.jetbrains.jewel.foundation.theme.ThemeDefinition
 import org.jetbrains.jewel.intui.standalone.theme.lightThemeDefinition
 import org.jetbrains.jewel.ui.component.Text
 import java.awt.BorderLayout
@@ -50,7 +53,9 @@ private fun swingMain() {
 
               SwingPanel(Color.Cyan, {
                 JLabel("<html><body>$loremIpsum</body></html>")
-              }, Modifier.padding(horizontal = 8.dp).fillMaxWidth())
+              }, Modifier
+                  .padding(horizontal = 8.dp)
+                  .fillMaxWidth())
 
               repeat(10) {
                 Text("Item ${it + 12}")
