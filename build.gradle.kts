@@ -3,7 +3,8 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
   kotlin("jvm")
   id("org.jetbrains.compose")
-  id("org.jetbrains.intellij.platform.base") version "2.1.0"
+  id("org.jetbrains.kotlin.plugin.compose")
+  id("org.jetbrains.intellij.platform.base") version "2.2.1"
 }
 
 group = "dev.sebastiano"
@@ -24,11 +25,10 @@ dependencies {
   implementation(compose.desktop.currentOs) {
     exclude(group = "org.jetbrains.compose.material")
   }
-  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-242:0.26.0")
+  implementation("org.jetbrains.jewel:jewel-int-ui-standalone-242:0.27.0")
 
   intellijPlatform {
-    intellijIdeaCommunity("2024.2.3")
-    instrumentationTools()
+    intellijIdeaCommunity("2024.3.1")
   }
   testImplementation(compose.desktop.uiTestJUnit4)
 }
