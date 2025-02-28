@@ -21,65 +21,54 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.singleWindowApplication
 
 fun main() = singleWindowApplication {
-    Column(Modifier.Companion.padding(16.dp)) {
-        val styles = remember {
-            TextLinkStyles(
-                style = SpanStyle(color = Color.Companion.Blue),
-                focusedStyle =
-                    SpanStyle(color = Color.Companion.Blue, fontWeight = FontWeight.Companion.Bold),
-                hoveredStyle =
-                    SpanStyle(
-                        color = Color.Companion.Blue,
-                        textDecoration = TextDecoration.Companion.Underline,
-                    ),
-                pressedStyle =
-                    SpanStyle(
-                        color = Color.Companion.Blue,
-                        textDecoration = TextDecoration.Companion.Underline,
-                        fontWeight = FontWeight.Companion.Bold,
-                    ),
-            )
-        }
-        val text = remember {
-            buildAnnotatedString {
-                append("Hello, banana, this is a perfectly normal ")
-                pushLink(LinkAnnotation.Url("https://www.google.com", styles))
-                append("link to Google")
-                pop()
-                append(", and you can have you own link, too, if you want. ")
-                pushLink(LinkAnnotation.Url("https://www.google.com/search?q=whatever", styles))
-                append("There is another link")
-                pop()
-                append(", I dunno, whatever.")
-            }
-        }
-        BasicText(text)
-
-        Spacer(Modifier.Companion.height(16.dp))
-
-        val interactionSource = remember { MutableInteractionSource() }
-        var borderColor by remember { mutableStateOf(Color.Companion.Gray) }
-        Box(
-            Modifier.Companion.border(1.dp, borderColor)
-                .clickable(interactionSource, indication = null) {}
-                .size(150.dp, 20.dp)
-        ) {
-            BasicText("I am clickable", Modifier.Companion.align(Alignment.Companion.Center))
-        }
-
-        LaunchedEffect(interactionSource) {
-            interactionSource.interactions.collect { interaction ->
-                when (interaction) {
-                    is FocusInteraction.Unfocus -> borderColor = Color.Companion.Gray
-                    is FocusInteraction.Focus -> borderColor = Color.Companion.Red
-                }
-            }
-        }
+  Column(Modifier.padding(16.dp)) {
+    val styles = remember {
+      TextLinkStyles(
+        style = SpanStyle(color = Color.Blue),
+        focusedStyle = SpanStyle(color = Color.Red),
+        hoveredStyle = SpanStyle(color = Color.Blue, textDecoration = TextDecoration.Underline),
+        pressedStyle = SpanStyle(color = Color.Red, textDecoration = TextDecoration.Underline),
+      )
     }
+    val text = remember {
+      buildAnnotatedString {
+        append("Hello, banana, this is a perfectly normal ")
+        pushLink(LinkAnnotation.Url("https://www.google.com", styles))
+        append("but quite long link to Google")
+        pop()
+        append(", and you can have you own link, too, if you want. ")
+        pushLink(LinkAnnotation.Url("https://www.google.com/search?q=whatever", styles))
+        append("There is another long link here")
+        pop()
+        append(", I dunno, whatever.")
+      }
+    }
+    BasicText(text)
+
+    Spacer(Modifier.height(16.dp))
+
+    val interactionSource = remember { MutableInteractionSource() }
+    var borderColor by remember { mutableStateOf(Color.Gray) }
+    Box(
+      Modifier.border(1.dp, borderColor)
+        .clickable(interactionSource, indication = null) {}
+        .size(150.dp, 20.dp)
+    ) {
+      BasicText("I am clickable", Modifier.align(Alignment.Center))
+    }
+
+    LaunchedEffect(interactionSource) {
+      interactionSource.interactions.collect { interaction ->
+        when (interaction) {
+          is FocusInteraction.Unfocus -> borderColor = Color.Gray
+          is FocusInteraction.Focus -> borderColor = Color.Red
+        }
+      }
+    }
+  }
 }
