@@ -45,7 +45,11 @@ fun main() = singleWindowApplication {
         pushLink(LinkAnnotation.Url("https://www.google.com/search?q=whatever", styles))
         append("There is another long link here")
         pop()
-        append(", I dunno, whatever.")
+        append(", I dunno, whatever. But hey, I have even ")
+        pushLink(LinkAnnotation.Url("https://www.google.com/search?q=whatever", styles))
+        append("more links like this")
+        pop()
+        append(" from where those came from!")
       }
     }
     BasicText(text)
