@@ -4,7 +4,7 @@ plugins {
   kotlin("jvm")
   id("org.jetbrains.compose")
   id("org.jetbrains.kotlin.plugin.compose")
-  id("org.jetbrains.intellij.platform.base") version "2.2.1"
+  id("org.jetbrains.intellij.platform.base") version "2.3.0"
 }
 
 group = "dev.sebastiano"
