@@ -19,7 +19,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.intellij.openapi.project.Project
 import org.jetbrains.jewel.ui.component.IconActionButton
 import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
@@ -29,144 +28,138 @@ import org.junit.Test
 
 class TestExample {
 
-    @get:Rule
-    val rule = createComposeRule()
+  @get:Rule
+  val rule = createComposeRule()
 
-    @Test
-    fun `should not hang while testing`() {
-        val fooProvider: FooProvider = TestFooProvider()
-        rule.setContent {
-            TestTheme {
-                MyRoot(fooProvider, Modifier.fillMaxSize())
-            }
-        }
+  @Test
+  fun `should not hang while testing`() {
+    val fooProvider: FooProvider = TestFooProvider()
+    rule.setContent { TestTheme { MyRoot(fooProvider, Modifier.fillMaxSize()) } }
 
-        rule.onNodeWithTag("test123").assertDoesNotExist()
-    }
+    rule.onNodeWithTag("test123").assertDoesNotExist()
+  }
 }
 
 @Composable
 private fun MyRoot(fooProvider: FooProvider, modifier: Modifier = Modifier) {
-    val items = remember { listOf("One", "Two", "Three") }
-    val listState = rememberLazyListState()
-    VerticallyScrollableContainer(modifier) {
-        val scrollbarAdapter = rememberScrollbarAdapter(listState)
-        LazyColumn(
-            modifier = Modifier.verticalScrim(scrollbarAdapter, Color.Red)
-                .padding(end = 16.dp),
-            state = listState
-        ) {
-            items(items, key = { it }) { Item(it, fooProvider) }
-        }
+  val items = remember { listOf("One", "Two", "Three") }
+  val listState = rememberLazyListState()
+  VerticallyScrollableContainer(modifier) {
+    val scrollbarAdapter = rememberScrollbarAdapter(listState)
+    LazyColumn(
+      modifier = Modifier.verticalScrim(scrollbarAdapter, Color.Red).padding(end = 16.dp),
+      state = listState,
+    ) {
+      items(items, key = { it }) { Item(it, fooProvider) }
     }
+  }
 }
 
 private fun Modifier.verticalScrim(
-    scrollbarAdapter: ScrollbarAdapter,
-    scrimColor: Color,
-    scrimHeight: Dp = 20.dp,
+  scrollbarAdapter: ScrollbarAdapter,
+  scrimColor: Color,
+  scrimHeight: Dp = 20.dp,
 ) =
-    verticalScrimImpl(
-        scrollbarAdapter.canScrollForward,
-        scrollbarAdapter.canScrollBackward,
-        scrollbarAdapter.scrollOffset.toFloat(),
-        scrollbarAdapter.maxScrollOffset.toFloat(),
-        scrimColor,
-        scrimHeight,
-    )
+  verticalScrimImpl(
+    scrollbarAdapter.canScrollForward,
+    scrollbarAdapter.canScrollBackward,
+    scrollbarAdapter.scrollOffset.toFloat(),
+    scrollbarAdapter.maxScrollOffset.toFloat(),
+    scrimColor,
+    scrimHeight,
+  )
 
 private val ScrollbarAdapter.canScrollForward
-    get() = scrollOffset < maxScrollOffset
+  get() = scrollOffset < maxScrollOffset
 
 private val ScrollbarAdapter.canScrollBackward
-    get() = scrollOffset > 0.0
+  get() = scrollOffset > 0.0
 
 private fun Modifier.verticalScrimImpl(
-    canScrollForward: Boolean,
-    canScrollBackward: Boolean,
-    scrollOffset: Float,
-    maxScrollOffset: Float,
-    scrimColor: Color,
-    scrimHeight: Dp = 20.dp,
-) =
-    drawWithContent {
-        drawContent()
+  canScrollForward: Boolean,
+  canScrollBackward: Boolean,
+  scrollOffset: Float,
+  maxScrollOffset: Float,
+  scrimColor: Color,
+  scrimHeight: Dp = 20.dp,
+) = drawWithContent {
+  drawContent()
 
-        val scrimHeightPx = scrimHeight.toPx()
-        if (canScrollForward) {
-            val remainingScroll = maxScrollOffset - scrollOffset
-            val adjustedScrimHeight =
-                if (remainingScroll > scrimHeightPx) {
-                    scrimHeightPx
-                } else {
-                    (remainingScroll / scrimHeightPx) * scrimHeightPx
-                }
+  val scrimHeightPx = scrimHeight.toPx()
+  if (canScrollForward) {
+    val remainingScroll = maxScrollOffset - scrollOffset
+    val adjustedScrimHeight =
+      if (remainingScroll > scrimHeightPx) {
+        scrimHeightPx
+      } else {
+        (remainingScroll / scrimHeightPx) * scrimHeightPx
+      }
 
-            val scrimBrush =
-                Brush.verticalGradient(
-                    colors = listOf(scrimColor.copy(alpha = 0f), scrimColor),
-                    startY = size.height - adjustedScrimHeight,
-                    endY = size.height,
-                )
+    val scrimBrush =
+      Brush.verticalGradient(
+        colors = listOf(scrimColor.copy(alpha = 0f), scrimColor),
+        startY = size.height - adjustedScrimHeight,
+        endY = size.height,
+      )
 
-            drawRect(
-                scrimBrush,
-                topLeft = Offset(0f, size.height - adjustedScrimHeight),
-                size = Size(size.width, adjustedScrimHeight),
-            )
-        }
+    drawRect(
+      scrimBrush,
+      topLeft = Offset(0f, size.height - adjustedScrimHeight),
+      size = Size(size.width, adjustedScrimHeight),
+    )
+  }
 
-        if (canScrollBackward) {
-            val adjustedScrimHeight =
-                if (scrollOffset > scrimHeightPx) {
-                    scrimHeightPx
-                } else {
-                    (scrollOffset / scrimHeightPx) * scrimHeightPx
-                }
+  if (canScrollBackward) {
+    val adjustedScrimHeight =
+      if (scrollOffset > scrimHeightPx) {
+        scrimHeightPx
+      } else {
+        (scrollOffset / scrimHeightPx) * scrimHeightPx
+      }
 
-            val scrimBrush =
-                Brush.verticalGradient(
-                    colors = listOf(scrimColor, scrimColor.copy(alpha = 0f)),
-                    startY = 0f,
-                    endY = adjustedScrimHeight,
-                )
+    val scrimBrush =
+      Brush.verticalGradient(
+        colors = listOf(scrimColor, scrimColor.copy(alpha = 0f)),
+        startY = 0f,
+        endY = adjustedScrimHeight,
+      )
 
-            drawRect(scrimBrush, topLeft = Offset(0f, 0f), size = Size(size.width, adjustedScrimHeight))
-        }
-    }
+    drawRect(scrimBrush, topLeft = Offset(0f, 0f), size = Size(size.width, adjustedScrimHeight))
+  }
+}
 
 @Composable
 private fun Item(item: String, fooProvider: FooProvider, modifier: Modifier = Modifier) {
-    Item(item, modifier) { println(fooProvider.getFoo()) }
+  Item(item, modifier) { println(fooProvider.getFoo()) }
 }
 
 @Composable
 private fun Item(item: String, modifier: Modifier = Modifier, onAction: () -> Unit) {
-    Column {
-        Text(item)
+  Column {
+    Text(item)
 
-        IconActionButton(
-            AllIconsKeys.Actions.Dump,
-            contentDescription = null,
-            onClick = onAction,
-            modifier = modifier,
-        )
-    }
+    IconActionButton(
+      AllIconsKeys.Actions.Dump,
+      contentDescription = null,
+      onClick = onAction,
+      modifier = modifier,
+    )
+  }
 }
 
 private interface FooProvider {
-    fun getFoo(): Project
+  fun getFoo(): Int
 }
 
 private class TestFooProvider : FooProvider {
-    override fun getFoo(): Project =
-        throw UnsupportedOperationException("Not supported on this fake instance")
+  override fun getFoo(): Int =
+    throw UnsupportedOperationException("Not supported on this fake instance")
 
-    override fun equals(other: Any?): Boolean {
-        throw UnsupportedOperationException("Equals not supported on this fake instance")
-    }
+  override fun equals(other: Any?): Boolean {
+    throw UnsupportedOperationException("Equals not supported on this fake instance")
+  }
 
-    override fun hashCode(): Int {
-        throw UnsupportedOperationException("hashCode not supported on this fake instance")
-    }
+  override fun hashCode(): Int {
+    throw UnsupportedOperationException("hashCode not supported on this fake instance")
+  }
 }

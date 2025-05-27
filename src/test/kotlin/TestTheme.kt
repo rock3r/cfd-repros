@@ -12,28 +12,29 @@ import org.jetbrains.jewel.ui.ComponentStyling
 
 @Composable
 fun TestTheme(darkMode: Boolean = false, content: @Composable () -> Unit) {
-    val defaultTextStyle = JewelTheme.createDefaultTextStyle(fontFamily = FontFamily.InterForTests)
-    val editorTextStyle =
-        JewelTheme.createEditorTextStyle(fontFamily = FontFamily.JetBrainsMonoForTests)
+  val defaultTextStyle = JewelTheme.createDefaultTextStyle(fontFamily = FontFamily.InterForTests)
+  val editorTextStyle =
+    JewelTheme.createEditorTextStyle(fontFamily = FontFamily.JetBrainsMonoForTests)
 
-    val themeDefinition =
-        if (darkMode) {
-            JewelTheme.darkThemeDefinition(
-                defaultTextStyle = defaultTextStyle,
-                editorTextStyle = editorTextStyle,
-            )
-        } else {
-            JewelTheme.lightThemeDefinition(
-                defaultTextStyle = defaultTextStyle,
-                editorTextStyle = editorTextStyle,
-            )
-        }
-
-    val componentStyling = if (darkMode) {
-        ComponentStyling.dark()
+  val themeDefinition =
+    if (darkMode) {
+      JewelTheme.darkThemeDefinition(
+        defaultTextStyle = defaultTextStyle,
+        editorTextStyle = editorTextStyle,
+      )
     } else {
-        ComponentStyling.light()
+      JewelTheme.lightThemeDefinition(
+        defaultTextStyle = defaultTextStyle,
+        editorTextStyle = editorTextStyle,
+      )
     }
 
-    IntUiTheme(themeDefinition, componentStyling, true, content)
+  val componentStyling =
+    if (darkMode) {
+      ComponentStyling.dark()
+    } else {
+      ComponentStyling.light()
+    }
+
+  IntUiTheme(themeDefinition, componentStyling, true, content)
 }
