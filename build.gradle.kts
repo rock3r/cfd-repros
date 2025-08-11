@@ -26,13 +26,13 @@ logger.lifecycle(mainSourceSet.kotlin.srcDirs.first().path)
 
 dependencies {
   implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
-  implementation("org.jetbrains.jewel:jewel-int-ui-standalone:0.28.0-252.15920")
-  implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:0.28.0-252.15920")
+  implementation("org.jetbrains.jewel:jewel-int-ui-standalone:0.29.0-252.24604")
+  implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:0.29.0-252.24604")
 
   // TODO remove these when JEWEL-821 is fixed
-  implementation("org.jetbrains.jewel:jewel-foundation:0.28.0-252.15920")
-  implementation("org.jetbrains.jewel:jewel-ui:0.28.0-252.15920")
-  implementation("org.jetbrains.jewel:jewel-markdown-core:0.28.0-252.15920")
+  implementation("org.jetbrains.jewel:jewel-foundation:0.29.0-252.24604")
+  implementation("org.jetbrains.jewel:jewel-ui:0.29.0-252.24604")
+  implementation("org.jetbrains.jewel:jewel-markdown-core:0.29.0-252.24604")
   // END
 
   testImplementation(compose.desktop.uiTestJUnit4)
