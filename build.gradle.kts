@@ -13,27 +13,19 @@ version = "1.0-SNAPSHOT"
 repositories {
   mavenCentral()
   google()
-
-  // TODO remove when JEWEL-821 is fixed
-  maven("https://cache-redirector.jetbrains.com/intellij-dependencies")
 }
 
-val mySSet =
-  project.extensions.getByName("sourceSets") as SourceSetContainer
+val mySSet = project.extensions.getByName("sourceSets") as SourceSetContainer
 val mainSourceSet = mySSet.named("main").get()
 
 logger.lifecycle(mainSourceSet.kotlin.srcDirs.first().path)
 
 dependencies {
   implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
-  implementation("org.jetbrains.jewel:jewel-int-ui-standalone:0.29.0-252.24604")
-  implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:0.29.0-252.24604")
 
-  // TODO remove these when JEWEL-821 is fixed
-  implementation("org.jetbrains.jewel:jewel-foundation:0.29.0-252.24604")
-  implementation("org.jetbrains.jewel:jewel-ui:0.29.0-252.24604")
-  implementation("org.jetbrains.jewel:jewel-markdown-core:0.29.0-252.24604")
-  // END
+    val jewelVersion = "0.30.0-252.26252"
+    implementation("org.jetbrains.jewel:jewel-int-ui-standalone:$jewelVersion")
+    implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:$jewelVersion")
 
   testImplementation(compose.desktop.uiTestJUnit4)
 }
