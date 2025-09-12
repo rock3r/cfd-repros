@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,7 +53,8 @@ fun main() = singleWindowApplication {
         append(" from where those came from!")
       }
     }
-    BasicText(text)
+
+      SelectionContainer { BasicText(text) }
 
     Spacer(Modifier.height(16.dp))
 
