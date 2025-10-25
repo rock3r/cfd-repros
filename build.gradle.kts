@@ -23,7 +23,7 @@ logger.lifecycle(mainSourceSet.kotlin.srcDirs.first().path)
 dependencies {
   implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
 
-    val jewelVersion = "0.30.0-252.26252"
+    val jewelVersion = "0.31.0-252.27409"
     implementation("org.jetbrains.jewel:jewel-int-ui-standalone:$jewelVersion")
     implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:$jewelVersion")
 
