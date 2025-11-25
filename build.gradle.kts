@@ -21,6 +21,7 @@ dependencies {
     val jewelVersion = "0.32.0-253.28294.205"
     implementation("org.jetbrains.jewel:jewel-int-ui-standalone:$jewelVersion")
     implementation("org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:$jewelVersion")
+    implementation("org.jetbrains.jewel:jewel-markdown-extensions-images:$jewelVersion")
     implementation("com.jetbrains.intellij.platform:icons:253.28294.113")
 
     testImplementation(compose.desktop.uiTestJUnit4)
